@@ -70,14 +70,14 @@ public class UserController {
 
 	//Circuit Breaker Resilience4J example
 	@GetMapping("/circuitbreaker/{id}")
-	@CircuitBreaker(name = "getUserByUsingCB", fallbackMethod = "CBFallbackMethod")
+	@CircuitBreaker(name = "getUserByUsingCB", fallbackMethod = "cBFallbackMethod")
 	public UserDepartmentVo getUserByUsingCB(@PathVariable("id") long userId,@RequestHeader(value="Authorization") String authorizationHeader) {
 
 		return userService.getUser(userId,authorizationHeader);
 	}
 
 	
-	public UserDepartmentVo CBFallbackMethod(Exception e) {
+	public UserDepartmentVo cBFallbackMethod(Exception e) {
 
 		return new UserDepartmentVo(new User(1, "Dummy", "Dummy", "Dummy", 1), new Department(1, "Dummy", "Dummy", "Dummy"));
 	}
